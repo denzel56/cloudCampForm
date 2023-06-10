@@ -1,3 +1,65 @@
 .root {
+  width: 900px;
+  height: 704px;
+  border-radius: 12px 12px 0 0;
+  margin: 0 auto;
+  margin-top: 24px;
+  padding: 24px 25px;
+  background-color: #fff;
 
+  .header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    .avatar {
+      width: 80px;
+      height: 80px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #D5E4F7;
+      border-radius: 100%;
+      font-size: 40px;
+      color: #212830;
+      ;
+    }
+
+    .userInfo {
+      margin-left: 24px;
+
+      span {
+        font-size: 20px;
+        font-weight: 600;
+        color: #333;
+      }
+
+      .userLinks {
+        width: 228px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 8px;
+
+        .link {
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+
+          a {
+            margin-left: 6px;
+            font-size: 12px;
+            font-weight: 400;
+            text-decoration: none;
+            color: #5558fa;
+          }
+        }
+      }
+    }
+  }
+
+  .line {
+    margin-top: 24px;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+  }
 }
