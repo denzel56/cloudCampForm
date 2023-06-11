@@ -1,9 +1,30 @@
 import React from 'react';
-import { Formik, Form, Field } from 'formik'
+import { useFormik } from 'formik'
+import * as Yup from 'yup';
+import InputMask from 'react-input-mask';
+
 import { ReactComponent as FolderIcon } from './assets/Vector.svg';
 import s from './Main.module.scss';
 
 function Main() {
+
+  const formik = useFormik({
+    initialValues: {
+      phone: '',
+      email: ''
+    },
+    validationSchema: Yup.object({
+      phone: Yup.string().min(10).required('Введите номер телефона'),
+      email: Yup.string().email('ошибка').required('Введите email')
+    })
+  })
+
+
+  const handleClickStart = () => {
+    console.log('start')
+  }
+
+
   return (
     <div className={s.root}>
       <div className={s.header}>
@@ -39,17 +60,51 @@ function Main() {
         </div>
       </div>
       <div className={s.line}/>
-      <Formik>
-        <Form>
-          <label htmlFor="phone">Номер телефона</label>
-          <Field
-            id="phone"
-            type="tel"
-            name="phone"
-            required
-          />
-        </Form>
-      </Formik>
+      <form className={s.startForm} onSubmit={formik.handleSubmit}>
+        <label htmlFor="phone">Номер телефона</label>
+        {/* <input
+          id="phone"
+          type="tel"
+          name="phone"
+          placeholder='+7 999 999-99-99'
+          onChange={formik.handleChange}
+          value={formik.values.phone}
+        /> */}
+        <InputMask
+          id="phone"
+          type="text"
+          name="phone"
+          mask="+7\(999) 999-99-99"
+          placeholder='+7 999 999-99-99'
+          onChange={formik.handleChange}
+          value={formik.values.phone}
+        />
+        { formik.touched.phone && formik.errors.phone ?
+          <div>{formik.errors.phone}</div>
+          : null
+        }
+        <label htmlFor="email">Email</label>
+        <input
+          id="email"
+          type="email"
+          name="email"
+          placeholder='tim.jennings@example.com'
+          onChange={formik.handleChange}
+          value={formik.values.email}
+        />
+        { formik.touched.email && formik.errors.email ?
+          <div>{formik.errors.email}</div>
+          : null
+        }
+        <button
+          id="button-start"
+          type='submit'
+          className={s.startButton}
+          onClick={handleClickStart}
+        >
+          Начать
+        </button>
+      </form>
     </div>
   );
 };
