@@ -1,12 +1,16 @@
 import React from 'react';
 import { useFormik } from 'formik'
+import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 import InputMask from 'react-input-mask';
+import { setUserFormData, userFormDataSelector } from '../../store/formSlice';
 
 import { ReactComponent as FolderIcon } from './assets/Vector.svg';
 import s from './Main.module.scss';
 
 function Main() {
+  const dispatch = useDispatch();
+  const formData = useSelector(userFormDataSelector);
 
   const formik = useFormik({
     initialValues: {
@@ -21,7 +25,11 @@ function Main() {
 
 
   const handleClickStart = () => {
-    console.log('start')
+    console.log('start', formData)
+    dispatch(setUserFormData({
+      'phone': formik.values.phone,
+      'email': formik.values.email
+    }))
   }
 
 
@@ -62,14 +70,6 @@ function Main() {
       <div className={s.line}/>
       <form className={s.startForm} onSubmit={formik.handleSubmit}>
         <label htmlFor="phone">Номер телефона</label>
-        {/* <input
-          id="phone"
-          type="tel"
-          name="phone"
-          placeholder='+7 999 999-99-99'
-          onChange={formik.handleChange}
-          value={formik.values.phone}
-        /> */}
         <InputMask
           id="phone"
           type="text"
