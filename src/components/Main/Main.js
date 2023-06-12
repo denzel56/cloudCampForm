@@ -24,7 +24,6 @@ function Main() {
       email: Yup.string().email('ошибка').required('Введите email')
     }),
     onSubmit: (values) => {
-      console.log('submit')
       dispatch(setUserFormData(values))
       formik.resetForm({phone: '', email: ''})
     }
