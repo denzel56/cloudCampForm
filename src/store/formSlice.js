@@ -9,6 +9,7 @@ export const userFormSlice = createSlice ({
   initialState,
   reducers: {
     setUserFormData: (state, action) => {
+      // eslint-disable-next-line
       state.userFormData = {
         ...state.userFormData,
         ...action.payload

@@ -1,3 +1,144 @@
-.root {
+@mixin flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
+$main-color: #5558fa;
+
+.root {
+  padding: 0 110px;
+  padding-top: 66px;
+
+  .statusBar {
+    height: 8px;
+    margin: 0 auto;
+    background-color: rgba(0, 0, 0, 0.08);
+  }
+
+  .steps {
+    @include flex();
+    position: relative;
+    top: -12px;
+
+    .stepItem {
+        display: flex;
+        width: 16px;
+        height: 16px;
+        background-color: #a6a6a6;
+        border-radius: 100%;
+
+        &:first-child {
+          @include flex();
+          justify-content: center;
+          background-color: $main-color;
+
+          .point {
+            width: 3.2px;
+            height: 3.2px;
+            background-color: #fff;
+            border-radius: 100%;
+          }
+        }
+    }
+  }
+
+  .stepsNum {
+    @include flex();
+    padding: 0 3px;
+
+    .num {
+      font-size: 14px;
+      font-weight: 400;
+      color: #666;
+
+      &:first-child {
+        color: $main-color;
+      }
+    }
+  }
+
+  .stepOneForm {
+    display: flex;
+    flex-direction: column;
+    margin-top: 43px;
+
+    label {
+      margin-top: 24px;
+      font-size: 14px;
+      font-weight: 400;
+    }
+
+    input {
+      width: 300px;
+      margin-top: 8px;
+      padding: 12px;
+      border: 1px solid rgba(0, 0, 0, 0.16);
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 400;
+
+      &::placeholder {
+        color: rgba(0, 0, 0, 0.48);
+      }
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    .errMessage {
+      margin-top: 8px;
+      font-size: 12px;
+      font-weight: 400;
+      color: rgba(0, 0, 0, 0.48);
+    }
+  }
+
+  .buttonBlock {
+    @include flex();
+    margin-top: 88px;
+
+    .nextButton {
+      width: 73px;
+      height: 44px;
+      padding: 12px 16px;
+      background-color: $main-color;
+      border-style: none;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 400;
+      color: #fff;
+      transition: all ease-in-out 0.4s;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      &:active {
+        transform: scale(0.6);
+      }
+    }
+
+    .backButton {
+      width: 73px;
+      height: 44px;
+      padding: 12px 16px;
+      background-color: #fff;
+      border: 1px solid $main-color;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 400;
+      color: $main-color;
+      transition: all ease-in-out 0.4s;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      &:active {
+        transform: scale(0.6);
+      }
+    }
+  }
 }

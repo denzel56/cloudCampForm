@@ -1,6 +1,7 @@
 import React from 'react';
-import { useFormik } from 'formik'
+import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import InputMask from 'react-input-mask';
 import { setUserFormData, userFormDataSelector } from '../../store/formSlice';
@@ -11,6 +12,7 @@ import s from './Main.module.scss';
 function Main() {
   const dispatch = useDispatch();
   const formData = useSelector(userFormDataSelector);
+  const navigate = useNavigate()
 
   const formik = useFormik({
     initialValues: {
@@ -20,16 +22,16 @@ function Main() {
     validationSchema: Yup.object({
       phone: Yup.string().min(10).required('Введите номер телефона'),
       email: Yup.string().email('ошибка').required('Введите email')
-    })
+    }),
+    onSubmit: (values) => {
+      console.log('submit')
+      dispatch(setUserFormData(values))
+      formik.resetForm({phone: '', email: ''})
+    }
   })
 
-
   const handleClickStart = () => {
-    console.log('start', formData)
-    dispatch(setUserFormData({
-      'phone': formik.values.phone,
-      'email': formik.values.email
-    }))
+    navigate('/create')
   }
 
 
@@ -77,23 +79,22 @@ function Main() {
           mask="+7\(999) 999-99-99"
           placeholder='+7 999 999-99-99'
           onChange={formik.handleChange}
-          value={formik.values.phone}
+          value={formData ? formData.phone : formik.values.phone}
         />
-        { formik.touched.phone && formik.errors.phone ?
-          <div>{formik.errors.phone}</div>
+        { formik.phone && formik.errors.phone ?
+          <div className={s.errMessage}>{formik.errors.phone}</div>
           : null
         }
-        <label htmlFor="email">Email</label>
         <input
           id="email"
           type="email"
           name="email"
           placeholder='tim.jennings@example.com'
           onChange={formik.handleChange}
-          value={formik.values.email}
+          value={formData ? formData.email : formik.values.email}
         />
-        { formik.touched.email && formik.errors.email ?
-          <div>{formik.errors.email}</div>
+        { formik.email && formik.errors.email ?
+          <div className={s.errMessage}>{formik.errors.email}</div>
           : null
         }
         <button
