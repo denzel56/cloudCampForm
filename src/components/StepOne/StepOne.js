@@ -3,19 +3,26 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import Select from 'react-select';
 import { userFormDataSelector, setUserFormData } from '../../store/formSlice';
 
 import s from './StepOne.module.scss';
 
-// const Sex = {
-//   Man: 'man',
-//   Woman: 'woman'
-// }
 
 function StepOne () {
   const dispatch = useDispatch();
   const formData = useSelector(userFormDataSelector);
   const navigate = useNavigate();
+
+  const options = [{
+    value: 'man',
+    label: 'Man'
+  },
+  {
+    value: 'woman',
+    label: 'Woman'
+  }
+]
 
   const formik = useFormik({
     initialValues: {
@@ -101,7 +108,8 @@ function StepOne () {
           : null
         }
 
-        {/* <label htmlFor="sex">Sex</label> */}
+        <label htmlFor="sex">Sex</label>
+        <Select options={options} />
 
 
         <div className={s.buttonBlock}>

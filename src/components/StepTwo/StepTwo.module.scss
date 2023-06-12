@@ -1,3 +1,68 @@
-.root {
+@mixin flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
+$main-color: #5558fa;
+
+.root {
+  padding: 0 110px;
+  padding-top: 66px;
+
+
+  .statusBar {
+    height: 8px;
+    margin: 0 auto;
+    background-color: rgba(0, 0, 0, 0.08);
+    background: linear-gradient(90deg, rgba(85,88,250,1) 0%, rgba(85,88,250,1) 50%, rgba(0,0,0,0.08) 50%);
+    border-radius: 3px;
+  }
+
+  .steps {
+    @include flex();
+    position: relative;
+    top: -12px;
+
+    .stepItem {
+        display: flex;
+        width: 16px;
+        height: 16px;
+        background-color: #a6a6a6;
+        border-radius: 100%;
+
+        &:first-child, &:nth-child(2) {
+          @include flex();
+          justify-content: center;
+          background-color: $main-color;
+
+          .point {
+            width: 3.2px;
+            height: 3.2px;
+            background-color: #fff;
+            border-radius: 100%;
+          }
+        }
+    }
+  }
+
+  .stepsNum {
+    @include flex();
+    padding: 0 3px;
+
+    .num {
+      font-size: 14px;
+      font-weight: 400;
+      color: #666;
+
+      &:first-child {
+        color: $main-color;
+      }
+
+      &:nth-child(2) {
+        color: $main-color;
+        font-weight: 600;
+      }
+    }
+  }
 }
