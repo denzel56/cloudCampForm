@@ -37,9 +37,9 @@ function Main() {
   return (
     <div className={s.root}>
       <div className={s.header}>
-        <div className={s.avatar}>АИ</div>
+        <div className={s.avatar}>ДГ</div>
         <div className={s.userInfo}>
-          <span>Иван Иванов</span>
+          <span>Денис Голодков</span>
           <div className={s.userLinks}>
             <div className={s.link}>
               <div className={s.icon}>

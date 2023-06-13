@@ -9,4 +9,47 @@
   color: #333;
   outline: none;
   font-family: 'SB Sans Interface';
+
+  .custom-select {
+    &__control {
+      margin-top: 8px;
+      width: 325px;
+      height: 44px;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    &__value-container input {
+      padding: 0 !important;
+    }
+
+    &__placeholder {
+      font-size: 14px;
+      font-weight: 400;
+      color: rgba(0, 0, 0, 0.48);
+    }
+
+    &__indicator-separator {
+      display: none;
+    }
+
+    &__indicator {
+      color: rgba(0, 0, 0, 0.24);
+    }
+
+    &__menu {
+      width: 325px;
+      margin-top: 0;
+      box-shadow: none;
+
+      &-list {
+        border: none;
+        font-size: 14px;
+        font-weight: 400;
+        color: 333;
+      }
+    }
+  }
 }

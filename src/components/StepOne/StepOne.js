@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
@@ -7,22 +7,24 @@ import Select from 'react-select';
 import { userFormDataSelector, setUserFormData } from '../../store/formSlice';
 
 import s from './StepOne.module.scss';
+import { setCurrentStep } from '../../store/stepSlice';
 
+const options = [{
+  value: 'man',
+  label: 'man'
+},
+{
+  value: 'woman',
+  label: 'woman'
+}
+]
 
 function StepOne () {
+  const [currentSex, setCurrentSex] = useState('');
   const dispatch = useDispatch();
   const formData = useSelector(userFormDataSelector);
   const navigate = useNavigate();
 
-  const options = [{
-    value: 'man',
-    label: 'Man'
-  },
-  {
-    value: 'woman',
-    label: 'Woman'
-  }
-]
 
   const formik = useFormik({
     initialValues: {
@@ -41,14 +43,26 @@ function StepOne () {
         'nickname': values.nickname,
         'name': values.name,
         'sername': values.sername,
+        'sex': currentSex,
       }))
       formik.resetForm({nickname: '', name: '', sername: ''})
+      setCurrentSex('');
+      dispatch(setCurrentStep('two'));
     }
   })
+
+  const handleClickNext = () => {
+    dispatch(setCurrentStep('two'))
+  }
 
   const handleClickBack = () => {
     navigate('/')
   }
+
+  const handleChangeSelect = (newValue) => {
+    setCurrentSex(newValue.value);
+  }
+
 
   return (
     <div className={s.root}>
@@ -109,7 +123,15 @@ function StepOne () {
         }
 
         <label htmlFor="sex">Sex</label>
-        <Select options={options} />
+        <Select
+          classNamePrefix='custom-select'
+          options={options}
+          placeholder='Не выбрано'
+          onChange={handleChangeSelect}
+          isSearchable={false}
+          required
+          inputId='field-sex'
+        />
 
 
         <div className={s.buttonBlock}>
@@ -122,9 +144,10 @@ function StepOne () {
             Назад
           </button>
           <button
-            id="button-next"
+            id='button-next'
             type='submit'
             className={s.nextButton}
+            onClick={formData.nickname ? handleClickNext : null}
           >
             Далее
           </button>
