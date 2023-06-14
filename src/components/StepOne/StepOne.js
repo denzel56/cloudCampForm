@@ -28,9 +28,9 @@ function StepOne () {
 
   const formik = useFormik({
     initialValues: {
-      nickname: '',
-      name: '',
-      sername: ''
+      nickname: formData.nickname ? formData.nickname : '',
+      name: formData.name ? formData.name : '',
+      sername: formData.sername ? formData.sername : ''
     },
     validationSchema: Yup.object({
       nickname: Yup.string().matches(/^[а-яА-ЯёЁa-zA-Z0-9]+$/).min(2).max(30).required('Введите nickname'),
@@ -52,6 +52,7 @@ function StepOne () {
   })
 
   const handleClickNext = () => {
+    formik.handleSubmit()
     dispatch(setCurrentStep('two'))
   }
 
@@ -79,7 +80,7 @@ function StepOne () {
         <div className={s.num}>2</div>
         <div className={s.num}>3</div>
       </div>
-      <form className={s.stepOneForm} onSubmit={formik.handleSubmit}>
+      <form className={s.stepOneForm} >
         <label htmlFor="nickname">Nickname</label>
         <input
           id="field-nickname"
@@ -87,7 +88,7 @@ function StepOne () {
           name="nickname"
           placeholder='nickname'
           onChange={formik.handleChange}
-          value={formData ? formData.nickname : formik.values.nickname}
+          value={formik.values.nickname}
         />
         { formik.nickname && formik.errors.nickname ?
           <div className={s.errMessage}>{formik.errors.nickname}</div>
@@ -101,7 +102,7 @@ function StepOne () {
           name="name"
           placeholder='name'
           onChange={formik.handleChange}
-          value={formData ? formData.name : formik.values.name}
+          value={formik.values.name}
         />
         { formik.name && formik.errors.name ?
           <div className={s.errMessage}>{formik.errors.name}</div>
@@ -115,7 +116,7 @@ function StepOne () {
           name="sername"
           placeholder='sername'
           onChange={formik.handleChange}
-          value={formData ? formData.sername : formik.values.sername}
+          value={formik.values.sername}
         />
         { formik.sername && formik.errors.sername ?
           <div className={s.errMessage}>{formik.errors.sername}</div>
@@ -147,7 +148,7 @@ function StepOne () {
             id='button-next'
             type='submit'
             className={s.nextButton}
-            onClick={formData ? handleClickNext : null}
+            onClick={handleClickNext}
           >
             Далее
           </button>

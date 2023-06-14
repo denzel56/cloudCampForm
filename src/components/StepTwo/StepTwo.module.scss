@@ -71,7 +71,7 @@ $main-color: #5558fa;
     flex-direction: column;
     margin-top: 43px;
 
-    label, .checkedLabel {
+    label, .checkedLabel, .radioLabel {
       margin-top: 24px;
       font-size: 14px;
       font-weight: 400;
@@ -106,6 +106,9 @@ $main-color: #5558fa;
 
   .removeIcon {
     margin-left: 18px;
+    background-color: #fff;
+    border: none;
+
 
     &:hover {
       cursor: pointer;

@@ -1,13 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { setCurrentStep } from '../../store/stepSlice';
-// eslint-disable-next-line
 import { setUserFormData, userFormDataSelector } from '../../store/formSlice';
 
 import { ReactComponent as DoneIcon } from './assets/Vector.svg';
-import { ReactComponent as RemoveIcon } from './assets/Remove.svg';
+import removeIcon from './assets/remove.png';
 import s from './StepTwo.module.scss';
 
 const checkGroup = [1, 2, 3];
@@ -15,23 +14,34 @@ const radioGroup = [1, 2, 3];
 
 function StepTwo() {
   const [adv, setAdv] = useState(['', '', '']);
-  const [check, setChecked] = useState(['', '', ''])
   const dispatch = useDispatch();
   // eslint-disable-next-line
   const formData = useSelector(userFormDataSelector);
+
+  useEffect(() => {
+    if (formData.advantages) {
+      setAdv(formData.advantages)
+    }
+  }, [])
 
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
       advantages: adv,
-      checked: check
+      checked: [],
+      radio: ''
     },
     validationSchema: Yup.object({
       arguments: Yup.array().of(Yup.string().matches(/^[а-яА-ЯёЁa-zA-Z]+$/).min(2).max(30))
     }),
     onSubmit: (values) => {
-      console.log(values)
-      // dispatch(setCurrentStep('three'));
+      dispatch(setUserFormData({
+        ...formData,
+        'advantages': values.advantages,
+        'checked': values.checked,
+        'radio': values.radio
+      }))
+      dispatch(setCurrentStep('three'));
     }
   })
 
@@ -46,12 +56,11 @@ function StepTwo() {
     })
   }
 
-  const handleClickRemove = (e) => {
+  const handleClickRemove = (id) => {
     setAdv(prevState => {
       const newArr = [...prevState];
-      const index = e.target.id.slice(-1);
 
-      newArr.splice(index, 1);
+      newArr.splice(id, 1);
 
       return newArr
     })
@@ -65,24 +74,9 @@ function StepTwo() {
     })
   }
 
-  const handleChangeCheckbox = (e) => {
-
-    setChecked(prevState => {
-      const newArr = [...prevState];
-      const index = e.target.id.slice(-1);
-
-      if(newArr[index - 1] === '') {
-        newArr[index - 1] = e.target.value
-      } else {
-        newArr[index - 1] = ''
-      }
-
-      return newArr
-    })
-  }
-
   const handleClickNext = () => {
-    // dispatch(setCurrentStep('three'))
+    formik.handleSubmit();
+    dispatch(setCurrentStep('three'))
   }
 
   const handleClickBack = () => {
@@ -106,7 +100,7 @@ function StepTwo() {
         <div className={s.num}>2</div>
         <div className={s.num}>3</div>
       </div>
-      <form className={s.stepTwoForm} onSubmit={formik.handleSubmit}>
+      <form className={s.stepTwoForm} >
         <label htmlFor="advantages">Advantages
         {
           formik.values.advantages.map((item, index) => (
@@ -118,11 +112,13 @@ function StepTwo() {
                 onChange={handleCangeInput}
                 value={item}
               />
-              <RemoveIcon
+              <button type="button"
                 className={s.removeIcon}
                 id={`button-remove-${index + 1}`}
-                onClick={handleClickRemove}
-              />
+                onClick={() => handleClickRemove(index)}
+              >
+                <img src={removeIcon} alt="trash" />
+              </button>
             </div>
           ))
         }
@@ -142,13 +138,28 @@ function StepTwo() {
               <input
                 type="checkbox"
                 id={`field-checkbox-group-option-${item}`}
-                onChange={handleChangeCheckbox}
+                name='checked'
+                onChange={formik.handleChange}
                 value={item}/>
               {item}
             </label>
           ))
         }
 
+        <div className={s.radioLabel}>Radio group</div>
+        {
+          radioGroup.map((item) => (
+            <label htmlFor={`field-checkbox-group-option-${item}`}  className={s.checkboxItem}>
+              <input
+                type="radio"
+                id={`field-checkbox-group-option-${item}`}
+                name='radio'
+                onChange={formik.handleChange}
+                value={item}/>
+              {item}
+            </label>
+          ))
+        }
 
         <div className={s.buttonBlock}>
           <button
