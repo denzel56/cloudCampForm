@@ -47,7 +47,7 @@ function StepOne () {
       }))
       formik.resetForm({nickname: '', name: '', sername: ''})
       setCurrentSex('');
-      dispatch(setCurrentStep('two'));
+      dispatch(setCurrentStep('two'))
     }
   })
 
@@ -147,7 +147,7 @@ function StepOne () {
             id='button-next'
             type='submit'
             className={s.nextButton}
-            onClick={formData.nickname ? handleClickNext : null}
+            onClick={formData ? handleClickNext : null}
           >
             Далее
           </button>

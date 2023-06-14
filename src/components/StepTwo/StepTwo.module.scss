@@ -104,6 +104,37 @@ $main-color: #5558fa;
 
   }
 
+  .removeIcon {
+    margin-left: 18px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .addButton {
+      @include flex();
+      width: 44px;
+      height: 44px;
+      margin-top: 8px;
+      padding: 16px;
+      background-color: #fff;
+      border: 1px solid $main-color;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 400;
+      color: $main-color;
+      transition: all ease-in-out 0.4s;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      &:active {
+        transform: scale(0.6);
+      }
+  }
+
 
   .buttonBlock {
     @include flex();
