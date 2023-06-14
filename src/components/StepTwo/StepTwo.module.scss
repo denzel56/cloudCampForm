@@ -71,7 +71,7 @@ $main-color: #5558fa;
     flex-direction: column;
     margin-top: 43px;
 
-    label {
+    label, .checkedLabel {
       margin-top: 24px;
       font-size: 14px;
       font-weight: 400;
@@ -133,6 +133,22 @@ $main-color: #5558fa;
       &:active {
         transform: scale(0.6);
       }
+  }
+
+  .checkboxItem {
+    @include flex();
+    justify-content: flex-start;
+    margin-top: 8px;
+
+    input {
+      width: 20px;
+      margin: 0 5px 0 0;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
   }
 
 

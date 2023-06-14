@@ -10,11 +10,12 @@ import { ReactComponent as DoneIcon } from './assets/Vector.svg';
 import { ReactComponent as RemoveIcon } from './assets/Remove.svg';
 import s from './StepTwo.module.scss';
 
-const tags = [1, 2, 3]
-
+const checkGroup = [1, 2, 3];
+const radioGroup = [1, 2, 3];
 
 function StepTwo() {
   const [adv, setAdv] = useState(['', '', '']);
+  const [check, setChecked] = useState(['', '', ''])
   const dispatch = useDispatch();
   // eslint-disable-next-line
   const formData = useSelector(userFormDataSelector);
@@ -22,7 +23,8 @@ function StepTwo() {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      advantages: adv
+      advantages: adv,
+      checked: check
     },
     validationSchema: Yup.object({
       arguments: Yup.array().of(Yup.string().matches(/^[а-яА-ЯёЁa-zA-Z]+$/).min(2).max(30))
@@ -32,10 +34,6 @@ function StepTwo() {
       // dispatch(setCurrentStep('three'));
     }
   })
-
-  const generateKey = () => setTimeout(() => {
-      new Date().getTime();
-    }, 2)
 
   const handleCangeInput = (e) => {
     setAdv(prevState => {
@@ -67,6 +65,21 @@ function StepTwo() {
     })
   }
 
+  const handleChangeCheckbox = (e) => {
+
+    setChecked(prevState => {
+      const newArr = [...prevState];
+      const index = e.target.id.slice(-1);
+
+      if(newArr[index - 1] === '') {
+        newArr[index - 1] = e.target.value
+      } else {
+        newArr[index - 1] = ''
+      }
+
+      return newArr
+    })
+  }
 
   const handleClickNext = () => {
     // dispatch(setCurrentStep('three'))
@@ -94,11 +107,10 @@ function StepTwo() {
         <div className={s.num}>3</div>
       </div>
       <form className={s.stepTwoForm} onSubmit={formik.handleSubmit}>
-
-        <label htmlFor="advantages">Advantages</label>
+        <label htmlFor="advantages">Advantages
         {
           formik.values.advantages.map((item, index) => (
-            <div key={generateKey()} className={s.advantagesItem}>
+            <div className={s.advantagesItem}>
               <input
                 id={`field-advantages-${index + 1}`}
                 type='text'
@@ -114,6 +126,7 @@ function StepTwo() {
             </div>
           ))
         }
+        </label>
         <button
           type='button'
           className={s.addButton}
@@ -122,7 +135,19 @@ function StepTwo() {
             +
         </button>
 
-
+        <div className={s.checkedLabel}>Checked group</div>
+        {
+          checkGroup.map((item) => (
+            <label htmlFor={`field-checkbox-group-option-${item}`}  className={s.checkboxItem}>
+              <input
+                type="checkbox"
+                id={`field-checkbox-group-option-${item}`}
+                onChange={handleChangeCheckbox}
+                value={item}/>
+              {item}
+            </label>
+          ))
+        }
 
 
         <div className={s.buttonBlock}>
