@@ -9,13 +9,12 @@ import { ReactComponent as DoneIcon } from './assets/Vector.svg';
 import removeIcon from './assets/remove.png';
 import s from './StepTwo.module.scss';
 
-const checkGroup = [1, 2, 3];
+const checkboxGroup = [1, 2, 3];
 const radioGroup = [1, 2, 3];
 
 function StepTwo() {
   const [adv, setAdv] = useState(['', '', '']);
   const dispatch = useDispatch();
-  // eslint-disable-next-line
   const formData = useSelector(userFormDataSelector);
 
   useEffect(() => {
@@ -32,7 +31,9 @@ function StepTwo() {
       radio: ''
     },
     validationSchema: Yup.object({
-      arguments: Yup.array().of(Yup.string().matches(/^[а-яА-ЯёЁa-zA-Z]+$/).min(2).max(30))
+      advantages: Yup.array().of(Yup.string().matches(/^[а-яА-ЯёЁa-zA-Z]+$/).min(2).max(30)),
+      radio: Yup.number(),
+      checked: Yup.array().of(Yup.number())
     }),
     onSubmit: (values) => {
       dispatch(setUserFormData({
@@ -74,10 +75,6 @@ function StepTwo() {
     })
   }
 
-  const handleClickNext = () => {
-    formik.handleSubmit();
-    dispatch(setCurrentStep('three'))
-  }
 
   const handleClickBack = () => {
     dispatch(setCurrentStep('one'))
@@ -100,7 +97,7 @@ function StepTwo() {
         <div className={s.num}>2</div>
         <div className={s.num}>3</div>
       </div>
-      <form className={s.stepTwoForm} >
+      <form className={s.stepTwoForm} onSubmit={formik.handleSubmit}>
         <label htmlFor="advantages">Advantages
         {
           formik.values.advantages.map((item, index) => (
@@ -120,9 +117,16 @@ function StepTwo() {
                 <img src={removeIcon} alt="trash" />
               </button>
             </div>
-          ))
-        }
+
+            ))
+          }
+          {
+            formik.touched.advantages && formik.errors.advantages ?
+              <div className={s.errMessage}>{formik.errors.advantages}</div>
+              : null
+          }
         </label>
+
         <button
           type='button'
           className={s.addButton}
@@ -133,7 +137,7 @@ function StepTwo() {
 
         <div className={s.checkedLabel}>Checked group</div>
         {
-          checkGroup.map((item) => (
+          checkboxGroup.map((item) => (
             <label htmlFor={`field-checkbox-group-option-${item}`}  className={s.checkboxItem}>
               <input
                 type="checkbox"
@@ -144,6 +148,11 @@ function StepTwo() {
               {item}
             </label>
           ))
+        }
+        {
+          formik.touched.checked && formik.errors.checked ?
+            <div className={s.errMessage}>{formik.errors.checked}</div>
+            : null
         }
 
         <div className={s.radioLabel}>Radio group</div>
@@ -160,6 +169,11 @@ function StepTwo() {
             </label>
           ))
         }
+        {
+          formik.touched.radio && formik.errors.radio ?
+            <div className={s.errMessage}>{formik.errors.radio}</div>
+            : null
+        }
 
         <div className={s.buttonBlock}>
           <button
@@ -174,7 +188,6 @@ function StepTwo() {
             id="button-next"
             type='submit'
             className={s.nextButton}
-            onClick={handleClickNext}
           >
             Далее
           </button>

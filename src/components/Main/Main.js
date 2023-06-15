@@ -16,21 +16,20 @@ function Main() {
 
   const formik = useFormik({
     initialValues: {
-      phone: '',
-      email: ''
+      phone: formData && formData.phone ?  formData.phone : '',
+      email: formData && formData.email ? formData.email : ''
     },
     validationSchema: Yup.object({
       phone: Yup.string().min(10).required('Введите номер телефона'),
       email: Yup.string().email('ошибка').required('Введите email')
     }),
     onSubmit: (values) => {
+      navigate('/create')
       dispatch(setUserFormData(values))
-      formik.resetForm({phone: '', email: ''})
     }
   })
 
   const handleClickStart = () => {
-    navigate('/create')
   }
 
 
@@ -76,11 +75,11 @@ function Main() {
           type="text"
           name="phone"
           mask="+7\(999) 999-99-99"
-          placeholder='+7 999 999-99-99'
+          placeholder='+7 (999) 879-06-89'
           onChange={formik.handleChange}
-          value={formData ? formData.phone : formik.values.phone}
+          value={formik.values.phone}
         />
-        { formik.phone && formik.errors.phone ?
+        { formik.touched.phone && formik.errors.phone ?
           <div className={s.errMessage}>{formik.errors.phone}</div>
           : null
         }
@@ -88,11 +87,11 @@ function Main() {
           id="email"
           type="email"
           name="email"
-          placeholder='tim.jennings@example.com'
+          placeholder='golodkov.den@gmail.com'
           onChange={formik.handleChange}
-          value={formData ? formData.email : formik.values.email}
+          value={formik.values.email}
         />
-        { formik.email && formik.errors.email ?
+        { formik.touched.email && formik.errors.email ?
           <div className={s.errMessage}>{formik.errors.email}</div>
           : null
         }

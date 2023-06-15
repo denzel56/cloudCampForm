@@ -5,9 +5,9 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Select from 'react-select';
 import { userFormDataSelector, setUserFormData } from '../../store/formSlice';
+import { setCurrentStep } from '../../store/stepSlice';
 
 import s from './StepOne.module.scss';
-import { setCurrentStep } from '../../store/stepSlice';
 
 const options = [{
   value: 'man',
@@ -28,9 +28,9 @@ function StepOne () {
 
   const formik = useFormik({
     initialValues: {
-      nickname: formData.nickname ? formData.nickname : '',
-      name: formData.name ? formData.name : '',
-      sername: formData.sername ? formData.sername : ''
+      nickname: formData && formData.nickname ? formData.nickname : '',
+      name: formData && formData.name ? formData.name : '',
+      sername: formData && formData.sername ? formData.sername : ''
     },
     validationSchema: Yup.object({
       nickname: Yup.string().matches(/^[а-яА-ЯёЁa-zA-Z0-9]+$/).min(2).max(30).required('Введите nickname'),
@@ -45,16 +45,9 @@ function StepOne () {
         'sername': values.sername,
         'sex': currentSex,
       }))
-      formik.resetForm({nickname: '', name: '', sername: ''})
-      setCurrentSex('');
       dispatch(setCurrentStep('two'))
     }
   })
-
-  const handleClickNext = () => {
-    formik.handleSubmit()
-    dispatch(setCurrentStep('two'))
-  }
 
   const handleClickBack = () => {
     navigate('/')
@@ -80,7 +73,7 @@ function StepOne () {
         <div className={s.num}>2</div>
         <div className={s.num}>3</div>
       </div>
-      <form className={s.stepOneForm} >
+      <form className={s.stepOneForm} onSubmit={formik.handleSubmit}>
         <label htmlFor="nickname">Nickname</label>
         <input
           id="field-nickname"
@@ -90,7 +83,7 @@ function StepOne () {
           onChange={formik.handleChange}
           value={formik.values.nickname}
         />
-        { formik.nickname && formik.errors.nickname ?
+        { formik.touched.nickname && formik.errors.nickname ?
           <div className={s.errMessage}>{formik.errors.nickname}</div>
           : null
         }
@@ -104,7 +97,7 @@ function StepOne () {
           onChange={formik.handleChange}
           value={formik.values.name}
         />
-        { formik.name && formik.errors.name ?
+        { formik.touched.name && formik.errors.name ?
           <div className={s.errMessage}>{formik.errors.name}</div>
           : null
         }
@@ -118,7 +111,7 @@ function StepOne () {
           onChange={formik.handleChange}
           value={formik.values.sername}
         />
-        { formik.sername && formik.errors.sername ?
+        { formik.touched.sername && formik.errors.sername ?
           <div className={s.errMessage}>{formik.errors.sername}</div>
           : null
         }
@@ -148,7 +141,6 @@ function StepOne () {
             id='button-next'
             type='submit'
             className={s.nextButton}
-            onClick={handleClickNext}
           >
             Далее
           </button>
