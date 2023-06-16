@@ -1,16 +1,39 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { setCurrentStep } from '../../store/stepSlice';
 import { setUserFormData, userFormDataSelector } from '../../store/formSlice';
 
+
 import { ReactComponent as DoneIcon } from './assets/Vector.svg'
 import s from './StepThree.module.scss';
+import { useSendDataMutation } from '../../formServices/formApi';
+import { isModalSelector, setModal } from '../../store/modalSlice';
+import Modal from '../Modal/Modal';
 
 function StepThree() {
   const dispatch = useDispatch();
   const formData = useSelector(userFormDataSelector);
+  const isModal = useSelector(isModalSelector)
+  const [sendForm, {isSuccess, isError}] = useSendDataMutation();
+
+  useEffect(() => {
+    console.log('success',isSuccess)
+
+    if(isSuccess || isError) {
+      dispatch(setModal(true))
+    }
+  }, [isSuccess, isError])
+
+  const submitFormData = async (data) => {
+    try {
+      await sendForm(data).unwrap()
+    } catch (err) {
+      console.error('Failed to save the post: ', err)
+    }
+  }
+
 
   const formik = useFormik({
       enableReinitialize: true,
@@ -25,7 +48,10 @@ function StepThree() {
           ...formData,
           'about': values.about
         }))
-
+        submitFormData({
+          ...formData,
+          'about': values.about
+        })
       }
   })
 
@@ -90,7 +116,7 @@ function StepThree() {
             Назад
           </button>
           <button
-            id="button-next"
+            id="button-send"
             type='submit'
             className={s.nextButton}
           >
@@ -98,6 +124,13 @@ function StepThree() {
           </button>
         </div>
       </form>
+      {
+        isModal && isSuccess ? <Modal isSuccess /> : null
+      }
+
+      {
+        isModal && isError ? <Modal isError /> : null
+      }
     </div>
   );
 };
