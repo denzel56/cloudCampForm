@@ -9,6 +9,10 @@ import { setUserFormData, userFormDataSelector } from '../../store/formSlice';
 import { ReactComponent as FolderIcon } from './assets/Vector.svg';
 import s from './Main.module.scss';
 
+const myName = 'Денис'
+const mySurname = 'Голодков'
+
+
 function Main() {
   const dispatch = useDispatch();
   const formData = useSelector(userFormDataSelector);
@@ -36,9 +40,9 @@ function Main() {
   return (
     <div className={s.root}>
       <div className={s.header}>
-        <div className={s.avatar}>ДГ</div>
+        <div className={s.avatar}>{`${myName.split('').splice(0, 1)}${mySurname.split('').splice(0,1)}`}</div>
         <div className={s.userInfo}>
-          <span>Денис Голодков</span>
+          <span>{`${myName} ${mySurname}`}</span>
           <div className={s.userLinks}>
             <div className={s.link}>
               <div className={s.icon}>
@@ -83,6 +87,7 @@ function Main() {
           <div className={s.errMessage}>{formik.errors.phone}</div>
           : null
         }
+        <label htmlFor="email">Email</label>
         <input
           id="email"
           type="email"

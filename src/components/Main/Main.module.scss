@@ -117,16 +117,67 @@
 }
 
 @media (max-width: 468px) {
-  .header {
-    flex-direction: column;
-    justify-content: center;
+  .root {
+    .header {
+      flex-direction: column;
+      justify-content: center;
 
-    .userInfo {
-      margin-top: 24px;
-      text-align: center;
+      .userInfo {
+        margin-top: 24px;
+        margin-left: 0;
+        text-align: center;
 
-      span {
-        font-size: 36px;
+        span {
+          font-size: 36px;
+        }
+
+        .userLinks {
+          width: auto;
+          margin-top: 16px;
+
+
+          .link {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            &:nth-child(2), &:last-child {
+              margin-left: 12px;
+            }
+
+            .icon {
+              svg {
+                width: 26px;
+                height: 24px;
+              }
+            }
+
+            a {
+              margin-left: 8px;
+              font-size: 24px;
+              font-weight: 400;
+              text-decoration: none;
+              color: #5558fa;
+            }
+          }
+        }
+      }
+
+    }
+
+    .startForm {
+      margin: 0 auto;
+
+      label, input {
+        font-size: 24px;
+      }
+
+      .startButton {
+        width: 160px;
+        height: 58px;
+        margin: 0 auto;
+        margin-top: 48px;
+        font-size: 24px;
       }
     }
   }
