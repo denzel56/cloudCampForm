@@ -1,5 +1,6 @@
 .root {
 
+
   .header {
     display: flex;
     justify-content: flex-start;
@@ -111,6 +112,22 @@
 
     &:active {
       transform: scale(0.6);
+    }
+  }
+}
+
+@media (max-width: 468px) {
+  .header {
+    flex-direction: column;
+    justify-content: center;
+
+    .userInfo {
+      margin-top: 24px;
+      text-align: center;
+
+      span {
+        font-size: 36px;
+      }
     }
   }
 }

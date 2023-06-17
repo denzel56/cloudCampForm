@@ -19,16 +19,20 @@ function StepThree() {
   const [sendForm, {isSuccess, isError}] = useSendDataMutation();
 
   useEffect(() => {
-    console.log('success',isSuccess)
-
     if(isSuccess || isError) {
       dispatch(setModal(true))
     }
   }, [isSuccess, isError])
 
   const submitFormData = async (data) => {
+    const newChecked = data.checked.map((item) => +item)
+    const newData = {
+      ...data,
+      'checked': newChecked
+
+    }
     try {
-      await sendForm(data).unwrap()
+      await sendForm(newData).unwrap()
     } catch (err) {
       console.error('Failed to save the post: ', err)
     }

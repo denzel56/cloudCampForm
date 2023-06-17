@@ -9,6 +9,8 @@
   color: #333;
   outline: none;
   font-family: 'SB Sans Interface';
+  transition: all 0.8s;
+
 
   .custom-select {
     &__control {
@@ -51,5 +53,18 @@
         color: 333;
       }
     }
+  }
+}
+
+@media (max-width: 1024px) {
+  .App {
+    width: 748px;
+  }
+}
+
+@media (max-width: 748px) {
+  .App {
+    margin: 0;
+    padding-top: 48px;
   }
 }

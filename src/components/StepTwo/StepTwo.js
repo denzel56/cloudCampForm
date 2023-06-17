@@ -40,7 +40,7 @@ function StepTwo() {
         ...formData,
         'advantages': values.advantages,
         'checked': values.checked,
-        'radio': values.radio
+        'radio': +values.radio
       }))
       dispatch(setCurrentStep('three'));
     }
@@ -101,7 +101,9 @@ function StepTwo() {
         <label htmlFor="advantages">Advantages
         {
           formik.values.advantages.map((item, index) => (
-            <div className={s.advantagesItem}>
+            <div className={s.advantagesItem}
+              key={`field-advantages-${index + 1}`}
+            >
               <input
                 id={`field-advantages-${index + 1}`}
                 type='text'
@@ -138,7 +140,10 @@ function StepTwo() {
         <div className={s.checkedLabel}>Checked group</div>
         {
           checkboxGroup.map((item) => (
-            <label htmlFor={`field-checkbox-group-option-${item}`}  className={s.checkboxItem}>
+            <label
+              key={`field-checkbox-group-option-${item}`}
+              htmlFor={`field-checkbox-group-option-${item}`}
+              className={s.checkboxItem}>
               <input
                 type="checkbox"
                 id={`field-checkbox-group-option-${item}`}
@@ -158,13 +163,17 @@ function StepTwo() {
         <div className={s.radioLabel}>Radio group</div>
         {
           radioGroup.map((item) => (
-            <label htmlFor={`field-checkbox-group-option-${item}`}  className={s.checkboxItem}>
+            <label
+              key={`field-radio-group-option-${item}`}
+              htmlFor={`field-radio-group-option-${item}`}
+              className={s.checkboxItem}>
               <input
                 type="radio"
-                id={`field-checkbox-group-option-${item}`}
+                id={`field-radio-group-option-${item}`}
                 name='radio'
                 onChange={formik.handleChange}
-                value={item}/>
+                value={item}
+                />
               {item}
             </label>
           ))

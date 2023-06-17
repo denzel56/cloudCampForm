@@ -10,9 +10,10 @@ import { ReactComponent as ErrorIcon } from './assets/error.svg'
 
 import closeIcon from './assets/close.png'
 import s from './Modal.module.scss';
+import { setCurrentStep } from '../../store/stepSlice';
+import { setUserFormData } from '../../store/formSlice';
 
 function Modal({isSuccess, isError}) {
-  // eslint-disable-next-line
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -20,6 +21,8 @@ function Modal({isSuccess, isError}) {
 
     if(isSuccess) {
       navigate('/')
+      dispatch(setCurrentStep('one'))
+      dispatch(setUserFormData({}))
     }
     dispatch(setModal(false))
   }

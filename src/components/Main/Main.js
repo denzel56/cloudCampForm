@@ -45,7 +45,7 @@ function Main() {
                 <FolderIcon />
               </div>
               <div className={s.linkItem}>
-                <a href="s#">Telegram</a>
+                <a href="https://t.me/denzel_56" target='blank'>Telegram</a>
               </div>
             </div>
             <div className={s.link}>
@@ -53,7 +53,7 @@ function Main() {
                 <FolderIcon />
               </div>
               <div className={s.linkItem}>
-                <a href="s#">GitHub</a>
+                <a href="https://github.com/denzel56" target='blank'>GitHub</a>
               </div>
             </div>
             <div className={s.link}>
@@ -61,7 +61,7 @@ function Main() {
                 <FolderIcon />
               </div>
               <div className={s.linkItem}>
-                <a href="s#">Resume</a>
+                <a href="https://hh.ru/applicant/resumes/view?resume=cfd89adbff091b8f3e0039ed1f775456485568" target='blank'>Resume</a>
               </div>
             </div>
           </div>

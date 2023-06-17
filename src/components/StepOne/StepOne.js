@@ -16,13 +16,12 @@ const options = [{
 {
   value: 'woman',
   label: 'woman'
-}
-]
+}]
 
 function StepOne () {
-  const [currentSex, setCurrentSex] = useState('');
-  const dispatch = useDispatch();
   const formData = useSelector(userFormDataSelector);
+  const [currentSex, setCurrentSex] = useState(formData && formData.sex ? formData.sex : '');
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
 
@@ -48,6 +47,8 @@ function StepOne () {
       dispatch(setCurrentStep('two'))
     }
   })
+
+  const getCurrentSex = () => currentSex ? options.find(o => o.value === currentSex) : ''
 
   const handleClickBack = () => {
     navigate('/')
@@ -125,6 +126,7 @@ function StepOne () {
           isSearchable={false}
           required
           inputId='field-sex'
+          value={getCurrentSex()}
         />
 
 
