@@ -145,3 +145,28 @@ $main-color: #5558fa;
     }
   }
 }
+
+@media (min-width: 320px) and (max-width: 468px) {
+  .root {
+    padding: 0;
+
+    .stepOneForm {
+      max-width: 80%;
+      margin: 0 auto;
+      margin-top: 43px;
+
+      label, input {
+        font-size: 14px;
+      }
+
+      input {
+        max-width: 80%;
+      }
+
+      .errMessage {
+        font-size: 12px;
+        font-weight: 400;
+      }
+    }
+  }
+}

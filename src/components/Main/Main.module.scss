@@ -116,7 +116,7 @@
   }
 }
 
-@media (max-width: 468px) {
+@media (min-width: 320px) and (max-width: 468px) {
   .root {
     .header {
       flex-direction: column;
@@ -128,7 +128,7 @@
         text-align: center;
 
         span {
-          font-size: 36px;
+          font-size: 24px;
         }
 
         .userLinks {
@@ -142,19 +142,19 @@
             align-items: center;
 
             &:nth-child(2), &:last-child {
-              margin-left: 12px;
+              margin-left: 6px;
             }
 
             .icon {
               svg {
-                width: 26px;
-                height: 24px;
+                width: 16px;
+                height: 14px;
               }
             }
 
             a {
               margin-left: 8px;
-              font-size: 24px;
+              font-size: 14px;
               font-weight: 400;
               text-decoration: none;
               color: #5558fa;
@@ -167,22 +167,21 @@
 
     .startForm {
       margin: 0 auto;
+      max-width: 80%;
 
       label, input {
-        font-size: 24px;
+        font-size: 12px;
       }
 
       .errMessage {
-        font-size: 18px;
-        font-weight: 600;
+        font-size: 12px;
+        font-weight: 400;
       }
 
       .startButton {
-        width: 160px;
-        height: 58px;
         margin: 0 auto;
         margin-top: 48px;
-        font-size: 24px;
+        font-size: 14px;
       }
     }
   }

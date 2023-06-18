@@ -58,13 +58,20 @@
 
 @media (max-width: 1024px) {
   .App {
-    width: 748px;
+    max-width: 90%;
   }
 }
 
 @media (max-width: 748px) {
   .App {
-    margin: 0;
     padding-top: 48px;
+  }
+}
+
+@media (min-width: 320px) and (max-width: 468px) {
+  .custom-select {
+    &__control, &__menu {
+      max-width: 92%;
+    }
   }
 }
