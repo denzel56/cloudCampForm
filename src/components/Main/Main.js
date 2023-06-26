@@ -49,7 +49,7 @@ function Main() {
                 <FolderIcon />
               </div>
               <div className={s.linkItem}>
-                <a href="https://t.me/denzel_56" target='blank'>Telegram</a>
+                <a href="s#" target='blank'>Telegram</a>
               </div>
             </div>
             <div className={s.link}>
@@ -65,7 +65,7 @@ function Main() {
                 <FolderIcon />
               </div>
               <div className={s.linkItem}>
-                <a href="https://hh.ru/applicant/resumes/view?resume=cfd89adbff091b8f3e0039ed1f775456485568" target='blank'>Resume</a>
+                <a href="s#" target='blank'>Resume</a>
               </div>
             </div>
           </div>
@@ -79,7 +79,7 @@ function Main() {
           type="text"
           name="phone"
           mask="+7\(999) 999-99-99"
-          placeholder='+7 (999) 879-06-89'
+          placeholder='+7 (999) 999-99-99'
           onChange={formik.handleChange}
           value={formik.values.phone}
         />
